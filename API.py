@@ -8,30 +8,22 @@ import mlflow.pyfunc
 import pandas as pd
 import numpy as np
 import os
-
-# ⭐ NUEVO — cargar .env local
 from dotenv import load_dotenv
+
 load_dotenv()
 
-
-# ⭐ Configurar credenciales Databricks
 os.environ["DATABRICKS_HOST"] = os.getenv("DATABRICKS_HOST")
 os.environ["DATABRICKS_TOKEN"] = os.getenv("DATABRICKS_TOKEN")
 
-# ⭐ Decirle a MLflow que use Databricks
 mlflow.set_tracking_uri("databricks")
 
-# ⭐ URL del modelo (CAMBIA ESTO)
-URL_MODELO = "models:/ÁrbolDecisión/1"
-# o
-# URL_MODELO = "models:/consumo_model/1"
+URL_MODELO = "models:/workspace.default.consumo_tenerife/1"
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
 
     try:
-        # ⭐ usar pyfunc (más robusto en deploy)
         app.state.modelo = mlflow.pyfunc.load_model(URL_MODELO)
         print("Modelo cargado desde Databricks")
 
@@ -68,6 +60,9 @@ def predict(data: PredictRequest):
         "cups_municipio": data.cups_municipio,
         "cups_distribuidor": data.cups_distribuidor
     }])
+
+    X["dia"] = X["dia"].astype("int32")
+    X["mes"] = X["mes"].astype("int32")
 
     pred_log = app.state.modelo.predict(X)[0]
     pred_kwh = int(np.expm1(pred_log))
