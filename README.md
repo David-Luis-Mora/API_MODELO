@@ -135,21 +135,3 @@ o
 
 ---
 
-## Notas
-
-* El modelo debe existir en el registry de Databricks
-* Se carga en el arranque mediante `lifespan`
-* La predicción se transforma desde log-space usando `expm1`
-* Pensado para consumirse desde un frontend (ej. Gradio)
-
----
-
-## Posibles mejoras
-
-* Dockerización
-* Autenticación
-* Validación avanzada de inputs
-* Logging estructurado
-* Tests automatizados
-* CI/CD deployment
-
