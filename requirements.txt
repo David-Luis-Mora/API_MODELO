@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+pydantic
+
+mlflow
+databricks-sdk
+
+pandas
+numpy
+python-dotenv
+
+scikit-learn
+cloudpickle
