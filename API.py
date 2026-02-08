@@ -69,3 +69,11 @@ def predict(data: PredictRequest):
 
     return {"prediccion_kWh": pred_kwh}
 
+@app.get("/health")
+def health():
+
+    if app.state.modelo is None:
+        return {"status": "ko"}
+
+    return {"status": "ok"}
+
