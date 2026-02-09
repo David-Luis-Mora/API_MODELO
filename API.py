@@ -17,7 +17,7 @@ os.environ["DATABRICKS_TOKEN"] = os.getenv("DATABRICKS_TOKEN")
 
 mlflow.set_tracking_uri("databricks")
 
-URL_MODELO = "models:/workspace.default.consumo_tenerife/1"
+URL_MODELO = "models:/workspace.default.consumo_tenerife_version_final/1"
 
 
 @asynccontextmanager
